@@ -1,0 +1,102 @@
+
+{
+    "_comment_": "Output returned by search route",
+	"data": [
+		{
+			"cinema_name": "București AFI Cotroceni",
+			"events": [
+				{
+					"auditorium": "6",
+					"event_time": "2022-03-05T11:10:00"
+				},
+				{
+					"auditorium": "6",
+					"event_time": "2022-03-05T14:30:00"
+				},
+				{
+					"auditorium": "VIP3",
+					"event_time": "2022-03-05T14:45:00"
+				},
+				{
+					"auditorium": "6",
+					"event_time": "2022-03-05T17:50:00"
+				},
+				{
+					"auditorium": "VIP2",
+					"event_time": "2022-03-05T19:50:00"
+				},
+				{
+					"auditorium": "6",
+					"event_time": "2022-03-05T21:10:00"
+				}
+			]
+		},
+		{
+			"cinema_name": "București Mega Mall",
+			"events": [
+				{
+					"auditorium": "13",
+					"event_time": "2022-03-05T11:00:00"
+				},
+				{
+					"auditorium": "13",
+					"event_time": "2022-03-05T14:10:00"
+				},
+				{
+					"auditorium": "13",
+					"event_time": "2022-03-05T17:20:00"
+				},
+				{
+					"auditorium": "13",
+					"event_time": "2022-03-05T20:30:00"
+				}
+			]
+		},
+		{
+			"cinema_name": "Bucuresti Park Lake",
+			"events": [
+				{
+					"auditorium": "7",
+					"event_time": "2022-03-05T11:30:00"
+				},
+				{
+					"auditorium": "7",
+					"event_time": "2022-03-05T14:50:00"
+				},
+				{
+					"auditorium": "7",
+					"event_time": "2022-03-05T18:00:00"
+				},
+				{
+					"auditorium": "VIP14",
+					"event_time": "2022-03-05T19:50:00"
+				},
+				{
+					"auditorium": "7",
+					"event_time": "2022-03-05T21:10:00"
+				}
+			]
+		},
+		{
+			"cinema_name": "București Sun Plaza",
+			"events": [
+				{
+					"auditorium": "12",
+					"event_time": "2022-03-05T11:30:00"
+				},
+				{
+					"auditorium": "12",
+					"event_time": "2022-03-05T14:50:00"
+				},
+				{
+					"auditorium": "12",
+					"event_time": "2022-03-05T18:00:00"
+				},
+				{
+					"auditorium": "12",
+					"event_time": "2022-03-05T21:10:00"
+				}
+			]
+		}
+	]
+}
