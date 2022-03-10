@@ -1,15 +1,43 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import requests
 from flask_cors import CORS
+from auth import check_token
 
 app = Flask(__name__)
-#Enable cors for frontend app
+# Enable cors for frontend app
 CORS(app)
+
+
+@app.route("/protected", methods=["GET"])
+def index():
+    token_response = check_token(request)
+    if token_response.get("error") != None:
+        return token_response, token_response.get("code")
+    return {"status": "Ok"}
+
+@app.route("/admin", methods=["GET"])
+def admin():
+    headers = request.headers
+    token = headers.get("api-key")
+    if not token:
+        return {"error": "Unauthorized"}, 401
+    if token not in [item.get("token") for item in token_list]:
+        return {"error": "Unauthorized"}, 401
+    has_access = False
+    for item in token_list:
+        access_level = item.get("admin")
+        if token == item.get("token"):
+            has_access = access_level
+            break
+    if has_access is False:
+        return {"error": "Not authorized"}, 403
+            
+    return {"status": "Ok"}
 
 #Testing route
 @app.route("/", methods=["GET"])
 def home():
-   return 'Hello World!'
+    return 'Hello World!'
 
 # receives 2 parameters name and date and returns a json with link and error
 # (request example: http://127.0.0.1:5000/movie?name=batman&date=2022-03-04)
@@ -17,6 +45,10 @@ def home():
 def movie():
 
     try:
+        # Auth
+        token_response = check_token(request)
+        if token_response.get("error") != None:
+            return token_response, token_response.get("code")
         # dict with query parameters
         args = request.args
         name = args.get('name')
@@ -53,6 +85,10 @@ def movie():
 def search():
     
     try:
+        # Auth
+        token_response = check_token(request)
+        if token_response.get("error") != None:
+            return token_response, token_response.get("code")
         # dict with query parameters
         args = request.args
         name = args.get('name')
