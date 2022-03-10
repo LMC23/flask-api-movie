@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, jsonify
 import requests
 from flask_cors import CORS
-from auth import check_token
+from auth import check_token, check_admin
 
 app = Flask(__name__)
 # Enable cors for frontend app
@@ -17,21 +17,9 @@ def index():
 
 @app.route("/admin", methods=["GET"])
 def admin():
-    headers = request.headers
-    token = headers.get("api-key")
-    if not token:
-        return {"error": "Unauthorized"}, 401
-    if token not in [item.get("token") for item in token_list]:
-        return {"error": "Unauthorized"}, 401
-    has_access = False
-    for item in token_list:
-        access_level = item.get("admin")
-        if token == item.get("token"):
-            has_access = access_level
-            break
-    if has_access is False:
-        return {"error": "Not authorized"}, 403
-            
+    admin_response = check_admin(request)
+    if admin_response.get("error") != None:
+        return admin_response, admin_response.get("code")
     return {"status": "Ok"}
 
 #Testing route
