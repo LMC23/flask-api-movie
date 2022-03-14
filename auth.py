@@ -1,4 +1,5 @@
 from token_list import token_list
+from middlewares import token_required
 
 def check_token(request):
     headers = request.headers
