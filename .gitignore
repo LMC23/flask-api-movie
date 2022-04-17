@@ -1,2 +1,6 @@
 env
 __pycache__
+.env
+exemple
+app.log
+.pytest_cache

@@ -2,6 +2,7 @@
 
 - main file: app.py
 - examples: movie_route.json, search_route.json
+- implemented authentication with JWT token
 
 ## Installation:
 

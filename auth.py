@@ -1,30 +1,30 @@
-from token_list import token_list
-from middlewares import token_required
+import jwt
+import datetime
+from dotenv import dotenv_values
 
-def check_token(request):
-    headers = request.headers
-    token = headers.get("api-key")
-    if not token:
-        return {"error": "Unauthorized", "code": 401}
-    if token not in [item.get("token") for item in token_list]:
-        return {"error": "Unauthorized", "code": 401}
-    
-    return {"error": None, "code": 200}
+config = dotenv_values(".env")
 
-def check_admin(request):
-    headers = request.headers
-    token = headers.get("api-key")
-    if not token:
-        return {"error": "Unauthorized", "code": 401}
-    if token not in [item.get("token") for item in token_list]:
-        return {"error": "Unauthorized", "code": 401}
-    has_access = False
-    for item in token_list:
-        access_level = item.get("admin")
-        if token == item.get("token"):
-            has_access = access_level
-            break
-    if has_access is False:
-        return {"error": "Unauthorized", "code": 403}
-    
-    return {"error": None, "code": 200}
+
+def create_token(payload):
+    try:
+        key = config.get("JWT_SECRET")
+        if key is None:
+            raise ValueError("Could not get JWT secret.")
+        payload["exp"] = datetime.datetime.utcnow() + datetime.timedelta(seconds=900)
+
+        encoded = jwt.encode(payload, key, algorithm="HS256")
+
+        return encoded
+    except Exception as e:
+        raise e
+
+
+def verify_token(token):
+    try:
+        key = config.get("JWT_SECRET")
+        if key is None:
+            raise ValueError("Could not get JWT secret.")
+        decoded = jwt.decode(token, key, algorithms=["HS256"])
+        return decoded
+    except Exception as e:
+        raise e
