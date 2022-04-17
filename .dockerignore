@@ -1,5 +1,4 @@
 env
 __pycache__
-.env
 app.log
 .pytest_cache

@@ -1,11 +1,14 @@
 from db import Database
+from dotenv import dotenv_values
+
+config = dotenv_values(".env")
 
 CONFIG = {
-    "HOSTNAME": "localhost",
-    "DATABASE": "flask_database",
-    "USERNAME": "postgres",
-    "PASSWORD": "password",
-    "PORT_ID": 5432,
+    "HOSTNAME": config.get("DB_HOSTNAME"),
+    "DATABASE": config.get("DATABASE"),
+    "USERNAME": config.get("DB_USERNAME"),
+    "PASSWORD": config.get("DB_PASSWORD"),
+    "PORT_ID": config.get("DB_PORT_ID"),
 }
 
 try:
