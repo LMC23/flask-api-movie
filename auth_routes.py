@@ -1,11 +1,12 @@
 from flask import Blueprint, request
-from auth import create_token
-from db import Database
 import psycopg2.errorcodes
 import bcrypt
 import logging
+from dotenv import dotenv_values
 
 from middlewares import token_required, is_admin
+from auth import create_token
+from db import Database
 
 auth_blueprint = Blueprint("auth_blueprint", __name__)
 
@@ -14,13 +15,14 @@ logging.basicConfig(filename="app.log", filemode="a", format="%(asctime)s - %(na
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+config = dotenv_values(".env")
 
 CONFIG = {
-    "HOSTNAME": "localhost",
-    "DATABASE": "flask_database",
-    "USERNAME": "postgres",
-    "PASSWORD": "password",
-    "PORT_ID": 5432,
+    "HOSTNAME": config.get("DB_HOSTNAME"),
+    "DATABASE": config.get("DATABASE"),
+    "USERNAME": config.get("DB_USERNAME"),
+    "PASSWORD": config.get("DB_PASSWORD"),
+    "PORT_ID": config.get("DB_PORT_ID"),
 }
 
 db = Database(CONFIG)
